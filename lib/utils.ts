@@ -1,23 +1,10 @@
 import { Priority, Todo } from "@/lib/types";
 
-// 날짜 문자열을 보기 좋게 바꿔주는 함수
+// "YYYY-MM-DD" 날짜 문자열을 "YYYY년 MM월 DD일"로 바꿔주는 함수
+// Date로 파싱하면 UTC 자정으로 해석되어 시간대에 따라 하루가 밀리므로 문자열을 직접 나눈다
 export function fd(d: string) {
-  let result = "";
-  const x = new Date(d);
-  const y = x.getFullYear();
-  let m = x.getMonth() + 1;
-  let dd = x.getDate();
-  if (m < 10) {
-    result = result + y + "년 " + "0" + m + "월 ";
-  } else {
-    result = result + y + "년 " + m + "월 ";
-  }
-  if (dd < 10) {
-    result = result + "0" + dd + "일";
-  } else {
-    result = result + dd + "일";
-  }
-  return result;
+  const [year, month, day] = d.split("-");
+  return `${year}년 ${month}월 ${day}일`;
 }
 
 // 할일을 마감일이 이른 순서로 정렬 (마감일이 없는 항목은 뒤로)
