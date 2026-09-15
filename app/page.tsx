@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Header from "@/components/Header";
+import TodoStats from "@/components/TodoStats";
 import TodoInput from "@/components/TodoInput";
 import FilterBar from "@/components/FilterBar";
 import SortBar from "@/components/SortBar";
@@ -54,6 +55,7 @@ export default function Home() {
   return (
     <>
       <Header todos={todos} />
+      <TodoStats todos={todos} />
       <TodoInput onAdd={addTodo} />
       <FilterBar current={filter} onChange={setFilter} />
       <SortBar current={sortBy} onChange={setSortBy} />
