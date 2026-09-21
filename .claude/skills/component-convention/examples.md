@@ -47,6 +47,7 @@ export default function ComponentName({ current, onChange }: Props) {
 실제 파일과 같다.
 
 볼 점:
+
 - 훅·이벤트 핸들러가 없어서 `"use client"`가 없다.
 - 이미 있는 `countRemaining`을 가져다 쓰고, 파생 값은 렌더할 때 계산한다.
 - 0으로 나누는 경우를 처리하고, 직접 만든 진행 막대에 `role="progressbar"`와 `aria-*`를 붙였다.
@@ -114,6 +115,7 @@ export default function TodoStats({ todos }: Props) {
 실제 파일과 다른 점: 버튼에 `type="button"`을 추가했다.
 
 볼 점:
+
 - 선택지는 컴포넌트 밖 상수 배열로 두고, 값 타입을 `Filter`로 지정했다.
 - props는 `current` + `onChange` 쌍이다. 상태는 부모(`page.tsx`)가 가진다.
 - 선택 여부에 따라 클래스를 템플릿 리터럴 안의 삼항으로 바꾼다.
@@ -162,6 +164,7 @@ export default function FilterBar({ current, onChange }: Props) {
 실제 파일과 같다.
 
 볼 점:
+
 - 기본 `<input type="checkbox">` 대신 버튼으로 만들었기 때문에 `role="checkbox"`와 `aria-checked`로 상태를 알린다.
 - 값 없이 알리기만 하는 콜백이라 `onChange: () => void`다. 어떤 할일인지는 부모(`TodoItem`)가 묶어서 넘긴다.
 
@@ -209,6 +212,7 @@ export default function Checkbox({ checked, onChange }: Props) {
 실제 파일과 다른 점: `Checkbox` import를 `@/components/Checkbox`로, "삭제" 버튼에 `type="button"`을 추가했다.
 
 볼 점:
+
 - 우선순위별 라벨·색은 `Record<Priority, ...>`로 매핑해서, `Priority` 값이 늘면 타입 오류로 알 수 있다.
 - 콜백은 `onToggle(todo.id)`처럼 필요한 값만 넘긴다.
 - 선택 필드(`priority`, `dueDate`)는 있을 때만 그린다.
@@ -278,6 +282,7 @@ export default function TodoItem({ todo, onToggle, onDelete }: Props) {
 실제 파일과 다른 점: "추가" 버튼에 `type="button"`을 추가했고, Enter 처리에서 한글 조합 중인 입력을 무시하도록 `!e.nativeEvent.isComposing`을 넣었다.
 
 볼 점:
+
 - `useState`를 쓰므로 `"use client"`.
 - 상태는 입력 중인 값과 오류 문구뿐이고, 실제 추가는 `onAdd`로 부모에 올린다.
 - 내부 처리 함수는 `handleAdd`. 검증 → 콜백 호출 → 입력 초기화 순서.

@@ -77,15 +77,15 @@ interface Props {
 넣는 경우: 훅(`useState`, `useEffect` 등)을 쓰거나, JSX 요소에 이벤트 핸들러(`onClick`, `onChange`, `onKeyDown` 등)를 직접 붙일 때.
 넣지 않는 경우: props만 받아 그리는 컴포넌트.
 
-| 컴포넌트 | 훅 | 직접 붙인 이벤트 핸들러 | "use client" |
-|---|---|---|---|
-| Header | 없음 | 없음 | 없음 |
-| TodoStats | 없음 | 없음 | 없음 |
-| Checkbox | 없음 | `onClick` | 있음 |
-| FilterBar, SortBar | 없음 | `onClick` | 있음 |
-| TodoItem | 없음 | `onClick`(삭제) | 있음 |
-| TodoInput | `useState` | `onChange`, `onKeyDown`, `onClick` | 있음 |
-| TodoList | 없음 | 없음(콜백 전달만) | 있음 → 예외, 없어도 됨 |
+| 컴포넌트           | 훅         | 직접 붙인 이벤트 핸들러            | "use client"           |
+| ------------------ | ---------- | ---------------------------------- | ---------------------- |
+| Header             | 없음       | 없음                               | 없음                   |
+| TodoStats          | 없음       | 없음                               | 없음                   |
+| Checkbox           | 없음       | `onClick`                          | 있음                   |
+| FilterBar, SortBar | 없음       | `onClick`                          | 있음                   |
+| TodoItem           | 없음       | `onClick`(삭제)                    | 있음                   |
+| TodoInput          | `useState` | `onChange`, `onKeyDown`, `onClick` | 있음                   |
+| TodoList           | 없음       | 없음(콜백 전달만)                  | 있음 → 예외, 없어도 됨 |
 
 - `app/page.tsx`가 `"use client"`라서 지금은 하위 컴포넌트가 모두 브라우저에서도 실행된다. 그래도 파일마다 위 기준을 지켜서, 나중에 서버 컴포넌트에서 가져다 써도 동작하게 둔다.
 
@@ -104,16 +104,16 @@ interface Props {
 
 ## 7. 네이밍
 
-| 대상 | 규칙 | 예 |
-|---|---|---|
-| 파일·컴포넌트 | PascalCase | `TodoStats.tsx`, `TodoStats` |
-| props 타입 | `Props` | `interface Props` |
-| 콜백 prop | `on` + 동작 | `onAdd`, `onToggle`, `onDelete`, `onChange` |
-| 선택형 컴포넌트 props | `current` + `onChange` | `FilterBar`, `SortBar` |
-| 내부 이벤트 핸들러 | `handle` + 동작 | `handleAdd` |
-| page.tsx 상태 변경 함수 | 동사 + 대상 | `addTodo`, `toggleTodo`, `deleteTodo` |
-| 옵션 목록 상수 | 복수형 명사 | `filters`, `sorts`, `priorities` |
-| 스타일 매핑 상수 | 대상 + `Style` | `priorityStyle` |
+| 대상                    | 규칙                   | 예                                          |
+| ----------------------- | ---------------------- | ------------------------------------------- |
+| 파일·컴포넌트           | PascalCase             | `TodoStats.tsx`, `TodoStats`                |
+| props 타입              | `Props`                | `interface Props`                           |
+| 콜백 prop               | `on` + 동작            | `onAdd`, `onToggle`, `onDelete`, `onChange` |
+| 선택형 컴포넌트 props   | `current` + `onChange` | `FilterBar`, `SortBar`                      |
+| 내부 이벤트 핸들러      | `handle` + 동작        | `handleAdd`                                 |
+| page.tsx 상태 변경 함수 | 동사 + 대상            | `addTodo`, `toggleTodo`, `deleteTodo`       |
+| 옵션 목록 상수          | 복수형 명사            | `filters`, `sorts`, `priorities`            |
+| 스타일 매핑 상수        | 대상 + `Style`         | `priorityStyle`                             |
 
 ## 8. import 순서와 경로 별칭
 
@@ -128,23 +128,23 @@ interface Props {
 
 Tailwind 유틸 클래스만 JSX에 쓴다. `.css`나 `.module.css`는 만들지 않는다(`app/globals.css`는 Tailwind import와 body 폰트뿐). 강조색은 테마 토큰이 아니라 값으로 하드코딩되어 있으므로 새 컴포넌트도 같은 값을 쓴다.
 
-| 용도 | 클래스 | 사용처 |
-|---|---|---|
-| 섹션 구분 | `border-b border-gray-200 p-4` | Header, TodoStats |
-| 목록 항목 구분 | `border-b border-gray-100 px-4 py-3` | TodoItem |
-| 버튼 그룹 줄 | `flex gap-2 px-4 pb-2` | FilterBar, SortBar |
-| 본문 / 보조 / 메타 텍스트 | `text-gray-800` / `text-gray-500` / `text-xs text-gray-400` | TodoItem, Header |
-| 강조 숫자·값 | `font-bold text-gray-900`, 강조할 값은 `text-[#D97757]` | TodoStats, Header |
-| 주요 버튼 | `rounded-lg bg-[#D97757] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#c96647] active:scale-95` | TodoInput "추가" |
-| pill 버튼 공통 | `rounded-full border px-3.5 py-1.5 text-sm transition-all duration-200 active:scale-95` | FilterBar, SortBar |
-| pill 선택됨 | `border-[#D97757] bg-[#D97757]/10 text-[#D97757]` | FilterBar, SortBar, TodoInput |
-| pill 선택 안 됨 | `border-gray-200 text-gray-600 hover:border-[#D97757] hover:text-[#D97757]` | FilterBar, SortBar, TodoInput |
-| 입력창 | `rounded-lg border border-gray-200 bg-gray-50 text-sm outline-none transition-all duration-200 focus:border-[#D97757] focus:bg-white focus:ring-2 focus:ring-[#D97757]/20` | TodoInput |
-| 우선순위 배지 | 높음 `bg-red-50 text-red-500` / 보통 `bg-amber-50 text-amber-600` / 낮음 `bg-blue-50 text-blue-500` | TodoItem |
-| 삭제·위험 | `text-gray-400 hover:bg-red-50 hover:text-red-500` | TodoItem "삭제" |
-| 오류 문구 | `text-sm text-red-500` | TodoInput |
-| 완료된 항목 | `text-gray-400 line-through` | TodoItem |
-| 목록 항목 hover | `hover:bg-orange-50/40` | TodoItem |
+| 용도                      | 클래스                                                                                                                                                                     | 사용처                        |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| 섹션 구분                 | `border-b border-gray-200 p-4`                                                                                                                                             | Header, TodoStats             |
+| 목록 항목 구분            | `border-b border-gray-100 px-4 py-3`                                                                                                                                       | TodoItem                      |
+| 버튼 그룹 줄              | `flex gap-2 px-4 pb-2`                                                                                                                                                     | FilterBar, SortBar            |
+| 본문 / 보조 / 메타 텍스트 | `text-gray-800` / `text-gray-500` / `text-xs text-gray-400`                                                                                                                | TodoItem, Header              |
+| 강조 숫자·값              | `font-bold text-gray-900`, 강조할 값은 `text-[#D97757]`                                                                                                                    | TodoStats, Header             |
+| 주요 버튼                 | `rounded-lg bg-[#D97757] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#c96647] active:scale-95`                                                          | TodoInput "추가"              |
+| pill 버튼 공통            | `rounded-full border px-3.5 py-1.5 text-sm transition-all duration-200 active:scale-95`                                                                                    | FilterBar, SortBar            |
+| pill 선택됨               | `border-[#D97757] bg-[#D97757]/10 text-[#D97757]`                                                                                                                          | FilterBar, SortBar, TodoInput |
+| pill 선택 안 됨           | `border-gray-200 text-gray-600 hover:border-[#D97757] hover:text-[#D97757]`                                                                                                | FilterBar, SortBar, TodoInput |
+| 입력창                    | `rounded-lg border border-gray-200 bg-gray-50 text-sm outline-none transition-all duration-200 focus:border-[#D97757] focus:bg-white focus:ring-2 focus:ring-[#D97757]/20` | TodoInput                     |
+| 우선순위 배지             | 높음 `bg-red-50 text-red-500` / 보통 `bg-amber-50 text-amber-600` / 낮음 `bg-blue-50 text-blue-500`                                                                        | TodoItem                      |
+| 삭제·위험                 | `text-gray-400 hover:bg-red-50 hover:text-red-500`                                                                                                                         | TodoItem "삭제"               |
+| 오류 문구                 | `text-sm text-red-500`                                                                                                                                                     | TodoInput                     |
+| 완료된 항목               | `text-gray-400 line-through`                                                                                                                                               | TodoItem                      |
+| 목록 항목 hover           | `hover:bg-orange-50/40`                                                                                                                                                    | TodoItem                      |
 
 - 조건부 클래스는 템플릿 리터럴 안에서 삼항으로 조합한다.
 
@@ -180,12 +180,12 @@ Tailwind 유틸 클래스만 JSX에 쓴다. `.css`나 `.module.css`는 만들지
 
 기존 코드 중 위 규칙과 다른 곳이다. 새 코드에서는 규칙을 따르고, 이 파일을 고칠 일이 있으면 함께 맞춘다. 고치고 나면 이 목록에서 지운다.
 
-| 위치 | 규칙과 다른 점 | 규칙 |
-|---|---|---|
-| `components/Header.tsx` | props 타입을 인라인(`{ todos }: { todos: Todo[] }`)으로 씀 | 3절 `interface Props` |
-| `components/TodoItem.tsx` | `import Checkbox from "./Checkbox"` 상대 경로 | 8절 `@/components/Checkbox` |
-| `components/FilterBar.tsx`, `components/SortBar.tsx` | 버튼에 `type="button"` 없음 | 10절 |
-| `components/TodoInput.tsx` | "추가" 버튼에 `type="button"` 없음. Enter 처리에 `isComposing` 확인 없음 | 10절, 6절 |
-| `components/TodoItem.tsx` | "삭제" 버튼에 `type="button"` 없음 | 10절 |
-| `components/TodoList.tsx` | 훅·이벤트 핸들러가 없는데 `"use client"`가 있음 | 5절 |
-| `app/page.tsx` | `setTodos([newTodo, ...todos])` 등 함수형 업데이트를 쓰지 않음. import가 components → lib 순서 | 6절, 8절 |
+| 위치                                                 | 규칙과 다른 점                                                                                 | 규칙                        |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------- | --------------------------- |
+| `components/Header.tsx`                              | props 타입을 인라인(`{ todos }: { todos: Todo[] }`)으로 씀                                     | 3절 `interface Props`       |
+| `components/TodoItem.tsx`                            | `import Checkbox from "./Checkbox"` 상대 경로                                                  | 8절 `@/components/Checkbox` |
+| `components/FilterBar.tsx`, `components/SortBar.tsx` | 버튼에 `type="button"` 없음                                                                    | 10절                        |
+| `components/TodoInput.tsx`                           | "추가" 버튼에 `type="button"` 없음. Enter 처리에 `isComposing` 확인 없음                       | 10절, 6절                   |
+| `components/TodoItem.tsx`                            | "삭제" 버튼에 `type="button"` 없음                                                             | 10절                        |
+| `components/TodoList.tsx`                            | 훅·이벤트 핸들러가 없는데 `"use client"`가 있음                                                | 5절                         |
+| `app/page.tsx`                                       | `setTodos([newTodo, ...todos])` 등 함수형 업데이트를 쓰지 않음. import가 components → lib 순서 | 6절, 8절                    |
