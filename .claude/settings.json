@@ -6,8 +6,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/block-dangerous-commands.js\"",
-            "shell": "bash",
+            "command": "node \"$env:CLAUDE_PROJECT_DIR/.claude/hooks/block-dangerous-commands.js\"",
+            "shell": "powershell",
             "timeout": 10,
             "statusMessage": "위험 명령 검사 중..."
           }
@@ -17,12 +17,7 @@
     "PostToolUse": [
       {
         "matcher": "Edit|MultiEdit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx prettier --write ."
-          }
-        ]
+        "hooks": [{ "type": "command", "command": "npx prettier --write ." }]
       }
     ]
   }
